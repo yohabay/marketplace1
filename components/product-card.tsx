@@ -1,6 +1,6 @@
 "use client";
 
-import { addToCart, toggleWishlist } from "@/app/actions/user";
+import { addToCart } from "@/app/actions/user";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -22,7 +22,8 @@ interface ProductCardProps {
     rating: number;
     verified: boolean;
   };
-  isWishlisted?: boolean;
+  isWishlisted: boolean;
+  onWishlistToggle: () => void; // Add this line
 }
 
 export function ProductCard({
@@ -33,9 +34,9 @@ export function ProductCard({
   image,
   seller,
   isWishlisted = false,
+  onWishlistToggle,
 }: ProductCardProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [isWishlistedState, setIsWishlistedState] = useState(isWishlisted);
   const { toast } = useToast();
 
   const handleAddToCart = async () => {
@@ -54,29 +55,6 @@ export function ProductCard({
       });
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const handleToggleWishlist = async (e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent triggering card click
-    try {
-      await toggleWishlist(id);
-      const updatedWishlistState = !isWishlistedState;
-      setIsWishlistedState(updatedWishlistState);
-      toast({
-        title: updatedWishlistState
-          ? "Added to wishlist"
-          : "Removed from wishlist",
-        description: updatedWishlistState
-          ? "The item has been added to your wishlist."
-          : "The item has been removed from your wishlist.",
-      });
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to update wishlist. Please try again.",
-      });
     }
   };
 
@@ -102,13 +80,16 @@ export function ProductCard({
                 variant="ghost"
                 size="icon"
                 className={`absolute right-2 top-2 h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm ${
-                  isWishlistedState ? "text-red-500" : ""
+                  isWishlisted ? "text-red-500" : ""
                 }`}
-                onClick={handleToggleWishlist}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onWishlistToggle(); // Call the parent function passed as prop
+                }}
               >
                 <Heart
                   className="h-4 w-4"
-                  fill={isWishlistedState ? "currentColor" : "none"}
+                  fill={isWishlisted ? "currentColor" : "none"}
                 />
                 <span className="sr-only">Add to wishlist</span>
               </Button>

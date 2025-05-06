@@ -1,42 +1,36 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Loader2 } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
-import { useToast } from "@/components/ui/use-toast"
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/components/ui/use-toast";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
 
 export default function SettingsPage() {
-  const [isLoading, setIsLoading] = useState(false)
-  const { toast } = useToast()
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   const handleSave = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
+    e.preventDefault();
+    setIsLoading(true);
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     toast({
       title: "Settings saved",
       description: "Your settings have been updated successfully.",
-    })
-    setIsLoading(false)
-  }
+    });
+    setIsLoading(false);
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -65,7 +59,11 @@ export default function SettingsPage() {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" defaultValue="john@example.com" />
+                      <Input
+                        id="email"
+                        type="email"
+                        defaultValue="john@example.com"
+                      />
                     </div>
                   </div>
                   <div className="space-y-2">
@@ -79,7 +77,7 @@ export default function SettingsPage() {
                         Saving...
                       </>
                     ) : (
-                      'Save Changes'
+                      "Save Changes"
                     )}
                   </Button>
                 </form>
@@ -147,7 +145,7 @@ export default function SettingsPage() {
                   <div className="space-y-0.5">
                     <Label>Activity Status</Label>
                     <p className="text-sm text-muted-foreground">
-                      Show when you're active on the platform
+                      Show when you are active on the platform
                     </p>
                   </div>
                   <Switch />
@@ -158,6 +156,5 @@ export default function SettingsPage() {
         </Tabs>
       </div>
     </div>
-  )
+  );
 }
-

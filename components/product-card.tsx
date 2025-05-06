@@ -47,7 +47,6 @@ export function ProductCard({
         description: "The item has been added to your cart.",
       });
     } catch (error) {
-      console.error(error);
       toast({
         variant: "destructive",
         title: "Error",
@@ -59,20 +58,20 @@ export function ProductCard({
   };
 
   const handleToggleWishlist = async (e: React.MouseEvent) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent triggering card click
     try {
       await toggleWishlist(id);
-      setIsWishlistedState(!isWishlistedState);
+      const updatedWishlistState = !isWishlistedState;
+      setIsWishlistedState(updatedWishlistState);
       toast({
-        title: isWishlistedState
-          ? "Removed from wishlist"
-          : "Added to wishlist",
-        description: isWishlistedState
-          ? "The item has been removed from your wishlist."
-          : "The item has been added to your wishlist.",
+        title: updatedWishlistState
+          ? "Added to wishlist"
+          : "Removed from wishlist",
+        description: updatedWishlistState
+          ? "The item has been added to your wishlist."
+          : "The item has been removed from your wishlist.",
       });
     } catch (error) {
-      console.error(error);
       toast({
         variant: "destructive",
         title: "Error",
@@ -88,69 +87,69 @@ export function ProductCard({
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.2 }}
     >
-      <Card className="group overflow-hidden transition-all hover:shadow-lg">
-        <CardContent className="p-0">
-          <div className="relative">
-            <Image
-              src={image}
-              alt={title}
-              width={300}
-              height={300}
-              className="h-[200px] w-full object-cover transition-transform duration-300 group-hover:scale-105"
-            />
-            <Button
-              variant="ghost"
-              size="icon"
-              className={`absolute right-2 top-2 h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm ${
-                isWishlistedState ? "text-red-500" : ""
-              }`}
-              onClick={handleToggleWishlist}
-            >
-              <Heart
-                className="h-4 w-4"
-                fill={isWishlistedState ? "currentColor" : "none"}
+      <Link href={`/products/${id}`}>
+        <Card className="group overflow-hidden transition-all hover:shadow-lg">
+          <CardContent className="p-0">
+            <div className="relative">
+              <Image
+                src={image}
+                alt={title}
+                width={300}
+                height={300}
+                className="h-[200px] w-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
-              <span className="sr-only">Add to wishlist</span>
-            </Button>
-          </div>
-          <div className="space-y-2 p-4">
-            <h3 className="font-semibold">{title}</h3>
-            <div className="flex items-center justify-between">
-              <span className="text-lg font-bold">${price}</span>
-              <Badge variant="secondary">{condition}</Badge>
+              <Button
+                variant="ghost"
+                size="icon"
+                className={`absolute right-2 top-2 h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm ${
+                  isWishlistedState ? "text-red-500" : ""
+                }`}
+                onClick={handleToggleWishlist}
+              >
+                <Heart
+                  className="h-4 w-4"
+                  fill={isWishlistedState ? "currentColor" : "none"}
+                />
+                <span className="sr-only">Add to wishlist</span>
+              </Button>
             </div>
-            <div className="flex items-center space-x-1 text-sm text-muted-foreground">
-              <span>{seller.name}</span>
-              <span>•</span>
-              <div className="flex items-center">
-                <Star className="mr-1 h-3 w-3 fill-primary text-primary" />
-                <span>{seller.rating}</span>
+            <div className="space-y-2 p-4">
+              <h3 className="font-semibold">{title}</h3>
+              <div className="flex items-center justify-between">
+                <span className="text-lg font-bold">${price}</span>
+                <Badge variant="secondary">{condition}</Badge>
+              </div>
+              <div className="flex items-center space-x-1 text-sm text-muted-foreground">
+                <span>{seller.name}</span>
+                <span>•</span>
+                <div className="flex items-center">
+                  <Star className="mr-1 h-3 w-3 fill-primary text-primary" />
+                  <span>{seller.rating}</span>
+                </div>
               </div>
             </div>
-          </div>
-        </CardContent>
-        <CardFooter className="grid grid-cols-2 gap-2 p-4 pt-0">
-          <Button
-            variant="outline"
-            onClick={(e) => {
-              e.preventDefault();
-              handleAddToCart();
-            }}
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              "Add to Cart"
-            )}
-          </Button>
-          <Link href={`/products/${id}`} passHref>
-            <Button asChild>
-              <a>View Details</a>
+          </CardContent>
+          <CardFooter className="grid grid-cols-2 gap-2 p-4 pt-0">
+            <Button
+              variant="outline"
+              onClick={(e) => {
+                e.preventDefault(); // Prevent triggering card click
+                handleAddToCart();
+              }}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                "Add to Cart"
+              )}
             </Button>
-          </Link>
-        </CardFooter>
-      </Card>
+            <Link href={`/products/${id}`}>
+              <Button variant="ghost">View Details</Button>
+            </Link>
+          </CardFooter>
+        </Card>
+      </Link>
     </motion.div>
   );
 }

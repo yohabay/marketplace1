@@ -1,69 +1,73 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import Image from "next/image"
-import { useRouter } from 'next/navigation'
-import { motion } from 'framer-motion'
-import { Facebook, Loader2, Mail } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useToast } from "@/components/ui/use-toast"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/components/ui/use-toast";
+import { motion } from "framer-motion";
+import { Facebook, Loader2, Mail } from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function AuthPage() {
-  const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
-  const { toast } = useToast()
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const { toast } = useToast();
 
   const handleEmailAuth = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
+    e.preventDefault();
+    setIsLoading(true);
 
     try {
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // If successful
       toast({
         title: "Success",
         description: "You have been successfully logged in.",
-      })
-      
-      router.push('/products')
-    } catch (error) {
+      });
+
+      router.push("/products");
+    } catch {
+      // If an error occurs
       toast({
         variant: "destructive",
         title: "Error",
         description: "Invalid credentials. Please try again.",
-      })
+      });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const handleSocialAuth = async (provider: string) => {
-    setIsLoading(true)
+    setIsLoading(true);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
+      // Simulate API call for social login
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // If successful
       toast({
         title: "Success",
         description: `Successfully logged in with ${provider}.`,
-      })
-      
-      router.push('/products')
-    } catch (error) {
+      });
+
+      router.push("/products");
+    } catch {
+      // If an error occurs
       toast({
         variant: "destructive",
         title: "Error",
         description: `Failed to login with ${provider}. Please try again.`,
-      })
+      });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className="container relative min-h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">
@@ -82,7 +86,8 @@ export default function AuthPage() {
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
             <p className="text-lg">
-              &ldquo;This marketplace has transformed how I shop for second-hand items. The experience is seamless and trustworthy.&rdquo;
+              &ldquo;This marketplace has transformed how I shop for second-hand
+              items. The experience is seamless and trustworthy.&rdquo;
             </p>
             <footer className="text-sm">Sofia Davis</footer>
           </blockquote>
@@ -163,7 +168,7 @@ export default function AuthPage() {
                     variant="outline"
                     type="button"
                     disabled={isLoading}
-                    onClick={() => handleSocialAuth('Google')}
+                    onClick={() => handleSocialAuth("Google")}
                   >
                     {isLoading ? (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -182,7 +187,7 @@ export default function AuthPage() {
                     variant="outline"
                     type="button"
                     disabled={isLoading}
-                    onClick={() => handleSocialAuth('Facebook')}
+                    onClick={() => handleSocialAuth("Facebook")}
                   >
                     {isLoading ? (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -275,7 +280,7 @@ export default function AuthPage() {
                     variant="outline"
                     type="button"
                     disabled={isLoading}
-                    onClick={() => handleSocialAuth('Google')}
+                    onClick={() => handleSocialAuth("Google")}
                   >
                     {isLoading ? (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -294,7 +299,7 @@ export default function AuthPage() {
                     variant="outline"
                     type="button"
                     disabled={isLoading}
-                    onClick={() => handleSocialAuth('Facebook')}
+                    onClick={() => handleSocialAuth("Facebook")}
                   >
                     {isLoading ? (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -310,6 +315,5 @@ export default function AuthPage() {
         </Tabs>
       </div>
     </div>
-  )
+  );
 }
-

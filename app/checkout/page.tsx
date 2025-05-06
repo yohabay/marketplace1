@@ -1,71 +1,69 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { motion } from 'framer-motion'
-import { Loader2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { useToast } from '@/components/ui/use-toast'
+} from "@/components/ui/select";
+import { useToast } from "@/components/ui/use-toast";
+import { motion } from "framer-motion";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const shippingMethods = [
   {
-    id: 'standard',
-    name: 'Standard Shipping',
+    id: "standard",
+    name: "Standard Shipping",
     price: 5.99,
-    estimate: '5-7 business days',
+    estimate: "5-7 business days",
   },
   {
-    id: 'express',
-    name: 'Express Shipping',
+    id: "express",
+    name: "Express Shipping",
     price: 15.99,
-    estimate: '2-3 business days',
+    estimate: "2-3 business days",
   },
   {
-    id: 'overnight',
-    name: 'Overnight Shipping',
+    id: "overnight",
+    name: "Overnight Shipping",
     price: 29.99,
-    estimate: 'Next business day',
+    estimate: "Next business day",
   },
-]
+];
 
 export default function CheckoutPage() {
-  const [isLoading, setIsLoading] = useState(false)
-  const [step, setStep] = useState(1)
-  const { toast } = useToast()
-  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false);
+  const [step, setStep] = useState(1);
+  const { toast } = useToast();
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
+    e.preventDefault();
+    setIsLoading(true);
 
     // Simulate payment processing
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     toast({
       title: "Order placed successfully!",
       description: "You will receive a confirmation email shortly.",
-    })
+    });
 
-    router.push('/orders')
-    setIsLoading(false)
-  }
+    router.push("/orders");
+    setIsLoading(false);
+  };
 
   return (
     <div className="container mx-auto max-w-3xl px-4 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold">Checkout</h1>
-        <p className="text-muted-foreground">
-          Complete your purchase
-        </p>
+        <p className="text-muted-foreground">Complete your purchase</p>
       </div>
 
       {/* Progress Steps */}
@@ -81,7 +79,7 @@ export default function CheckoutPage() {
               <div
                 key={s}
                 className={`flex h-8 w-8 items-center justify-center rounded-full ${
-                  s <= step ? 'bg-primary text-primary-foreground' : 'bg-muted'
+                  s <= step ? "bg-primary text-primary-foreground" : "bg-muted"
                 }`}
               >
                 {s}
@@ -212,7 +210,7 @@ export default function CheckoutPage() {
             <Button
               type="button"
               variant="outline"
-              onClick={() => setStep(s => s - 1)}
+              onClick={() => setStep((s) => s - 1)}
             >
               Previous
             </Button>
@@ -220,10 +218,7 @@ export default function CheckoutPage() {
             <div />
           )}
           {step < 3 ? (
-            <Button
-              type="button"
-              onClick={() => setStep(s => s + 1)}
-            >
+            <Button type="button" onClick={() => setStep((s) => s + 1)}>
               Next
             </Button>
           ) : (
@@ -234,13 +229,12 @@ export default function CheckoutPage() {
                   Processing...
                 </>
               ) : (
-                'Place Order'
+                "Place Order"
               )}
             </Button>
           )}
         </div>
       </motion.form>
     </div>
-  )
+  );
 }
-

@@ -1,13 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
-import { Package, Truck, CheckCircle } from 'lucide-react'
 import { getOrderStatus } from '@/app/actions/orders'
+import { motion } from 'framer-motion'
+import { CheckCircle, Package, Truck } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 interface OrderStatus {
   status: 'processing' | 'shipped' | 'delivered'
-  estimatedDelivery: string
+  estimatedDelivery: Date
   tracking: {
     carrier: string
     number: string
@@ -20,7 +20,7 @@ export function OrderTracking({ orderNumber }: { orderNumber: string }) {
   useEffect(() => {
     const fetchStatus = async () => {
       const result = await getOrderStatus(orderNumber)
-      setStatus(result)
+      setStatus(result as OrderStatus)
     }
 
     fetchStatus()

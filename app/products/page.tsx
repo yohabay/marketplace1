@@ -1,24 +1,10 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useSearchParams, useRouter } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Filter, Loader2 } from 'lucide-react'
 import { ProductCard } from '@/components/product-card'
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Slider } from "@/components/ui/slider"
-import { Badge } from "@/components/ui/badge"
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-  SheetFooter,
-} from "@/components/ui/sheet"
 import {
   Select,
   SelectContent,
@@ -26,6 +12,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+import { Slider } from "@/components/ui/slider"
+import { AnimatePresence, motion } from 'framer-motion'
+import { Filter, Loader2 } from 'lucide-react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 // Mock data
 const mockProducts = Array.from({ length: 12 }, (_, i) => ({
@@ -303,7 +303,7 @@ export default function ProductsPage() {
             className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           >
             {products.map((product) => (
-              <ProductCard key={product.id} {...product} />
+              <ProductCard key={product.id} id={product.id} title={product.title} price={product.price} condition={product.condition} image={product.image} seller={product.seller} isWishlisted={false} onWishlistToggle={() => {}} />
             ))}
           </motion.div>
         )}

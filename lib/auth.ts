@@ -6,7 +6,7 @@ const secret = new TextEncoder().encode(
   process.env.JWT_SECRET || 'default-secret-key'
 )
 
-export async function encrypt(payload: any) {
+export async function encrypt(payload: Record<string, unknown>) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
@@ -14,7 +14,7 @@ export async function encrypt(payload: any) {
     .sign(secret)
 }
 
-export async function decrypt(input: string): Promise<any> {
+export async function decrypt(input: string): Promise<Record<string, unknown>> {
   const { payload } = await jwtVerify(input, secret, {
     algorithms: ['HS256'],
   })
@@ -50,7 +50,7 @@ export async function getSession() {
   if (!token) return null
   try {
     return await decrypt(token)
-  } catch (error) {
+  } catch {
     return null
   }
 }
@@ -63,7 +63,7 @@ export async function updateSession(request: NextRequest) {
     // Refresh token if it's close to expiring
     const newToken = await encrypt(parsed)
     request.cookies.set('token', newToken)
-  } catch (error) {
+  } catch {
     request.cookies.delete('token')
   }
 }

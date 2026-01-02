@@ -1,9 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-import { Loader2, Star } from 'lucide-react'
 import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
 import {
   Dialog,
   DialogContent,
@@ -11,7 +8,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/components/ui/use-toast"
+import { Loader2, Star } from 'lucide-react'
+import { useState } from 'react'
 
 interface ReviewModalProps {
   isOpen: boolean
@@ -63,7 +63,7 @@ export function ReviewModal({
       onSubmitSuccess?.()
       setRating(5)
       setReview('')
-    } catch (error) {
+    } catch {
       toast({
         variant: "destructive",
         title: "Error",

@@ -27,7 +27,7 @@ import { Slider } from "@/components/ui/slider"
 import { AnimatePresence, motion } from 'framer-motion'
 import { Filter, Loader2 } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 
 // Mock data
 const mockProducts = [
@@ -62,7 +62,7 @@ interface Filters {
   sort: string
 }
 
-export default function ProductsPage() {
+function ProductsPageContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   
@@ -318,6 +318,14 @@ export default function ProductsPage() {
         </div>
       )}
     </div>
+  )
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin" /></div>}>
+      <ProductsPageContent />
+    </Suspense>
   )
 }
 

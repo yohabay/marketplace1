@@ -28,19 +28,20 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 // Mock data
-const mockProducts = Array.from({ length: 12 }, (_, i) => ({
-  id: `${i + 1}`,
-  title: `Product ${i + 1}`,
-  price: Math.floor(Math.random() * 1000) + 100,
-  condition: ['New', 'Like New', 'Good', 'Fair'][Math.floor(Math.random() * 4)],
-  category: ['Electronics', 'Fashion', 'Home', 'Other'][Math.floor(Math.random() * 4)],
-  image: '/placeholder.svg',
-  seller: {
-    name: 'Seller Name',
-    rating: 4.5,
-    verified: true,
-  },
-}))
+const mockProducts = [
+  { id: '1', title: 'Product 1', price: 100, condition: 'New', category: 'Electronics', image: '/placeholder.svg', seller: { name: 'Seller Name', rating: 4.5, verified: true } },
+  { id: '2', title: 'Product 2', price: 200, condition: 'Like New', category: 'Fashion', image: '/placeholder.svg', seller: { name: 'Seller Name', rating: 4.5, verified: true } },
+  { id: '3', title: 'Product 3', price: 300, condition: 'Good', category: 'Home', image: '/placeholder.svg', seller: { name: 'Seller Name', rating: 4.5, verified: true } },
+  { id: '4', title: 'Product 4', price: 400, condition: 'Fair', category: 'Other', image: '/placeholder.svg', seller: { name: 'Seller Name', rating: 4.5, verified: true } },
+  { id: '5', title: 'Product 5', price: 500, condition: 'New', category: 'Electronics', image: '/placeholder.svg', seller: { name: 'Seller Name', rating: 4.5, verified: true } },
+  { id: '6', title: 'Product 6', price: 600, condition: 'Like New', category: 'Fashion', image: '/placeholder.svg', seller: { name: 'Seller Name', rating: 4.5, verified: true } },
+  { id: '7', title: 'Product 7', price: 700, condition: 'Good', category: 'Home', image: '/placeholder.svg', seller: { name: 'Seller Name', rating: 4.5, verified: true } },
+  { id: '8', title: 'Product 8', price: 800, condition: 'Fair', category: 'Other', image: '/placeholder.svg', seller: { name: 'Seller Name', rating: 4.5, verified: true } },
+  { id: '9', title: 'Product 9', price: 900, condition: 'New', category: 'Electronics', image: '/placeholder.svg', seller: { name: 'Seller Name', rating: 4.5, verified: true } },
+  { id: '10', title: 'Product 10', price: 1000, condition: 'Like New', category: 'Fashion', image: '/placeholder.svg', seller: { name: 'Seller Name', rating: 4.5, verified: true } },
+  { id: '11', title: 'Product 11', price: 1100, condition: 'Good', category: 'Home', image: '/placeholder.svg', seller: { name: 'Seller Name', rating: 4.5, verified: true } },
+  { id: '12', title: 'Product 12', price: 1200, condition: 'Fair', category: 'Other', image: '/placeholder.svg', seller: { name: 'Seller Name', rating: 4.5, verified: true } },
+]
 
 const conditions = ['New', 'Like New', 'Good', 'Fair']
 const categories = ['Electronics', 'Fashion', 'Home', 'Other']

@@ -109,7 +109,7 @@ export function ProductForm() {
       })
 
       router.push('/products')
-    } catch (error) {
+    } catch {
       toast({
         variant: "destructive",
         title: "Error",
